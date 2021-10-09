@@ -1,0 +1,32 @@
+.transaction-history {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 700px;
+
+  font-size: 24px;
+}
+
+.thead-history {
+  background-color: rgb(78, 110, 214);
+}
+
+.tbodyh-history {
+  text-align: start;
+}
+td {
+  border: 1px solid rgb(243, 236, 236);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 65px;
+}
+
+/* .switchColor {
+  background-color: red;
+} */
+.color {
+  background-color: rgb(245, 166, 166);
+}
+
+.color:nth-child(2n) {
+  background-color: rgb(218, 218, 218);
+}

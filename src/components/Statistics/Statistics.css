@@ -1,0 +1,14 @@
+.Statistics {
+  max-width: 500px;
+  background-color: rgb(102, 138, 102);
+  margin-left: auto;
+  margin-right: auto;
+}
+.stat-list {
+  margin-left: auto;
+  margin-right: auto;
+}
+.stat-list .item {
+  background-color: rgb(24, 29, 29);
+  color: cornsilk;
+}
