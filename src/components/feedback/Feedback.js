@@ -1,31 +1,68 @@
 import React from 'react';
 import styles from './Feedback.module.css';
-// import { Component } from 'react';
+import { Component } from 'react';
 
-export default function Feedback(props) {
-  //  const { id, label, percentage } = props;
+// export default function Feedback(props) {
+//   //  const { id, label, percentage } = props;
 
-  return <p className={styles.stales}>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>;
+//   return <p className={styles.stales}>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>;
+// }
+
+const ButtonGood = ({ changeMessage, label }) => (
+  <button type="button" onClick={changeMessage}>
+    {label}
+  </button>
+);
+const ButtonBad = ({ changeMessage, label }) => (
+  <button type="button" onClick={changeMessage}>
+    {label}
+  </button>
+);
+const ButtonNeutral = ({ changeMessage, label }) => (
+  <button type="button" onClick={changeMessage}>
+    {label}
+  </button>
+);
+class Feedback extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+    total: 0,
+    PositiveFedback: 0,
+  };
+
+  updateMessage = evt => {
+    console.log(evt);
+
+    this.setState({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+      total: 0,
+      PositiveFedback: 0,
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <h1>Please leave feedback</h1>
+        <ButtonGood label="Good Voldemar" changeMessage={this.updateMessage} />
+        <ButtonNeutral label="Neutral" changeMessage={this.updateMessage} />
+        <ButtonBad label="Bad" changeMessage={this.updateMessage} />
+        <h2>Statistics</h2>
+        <div className={styles.result}>
+          <span>No feedback given</span>
+          <span>Good: {this.state.good}</span>
+          <span>Neutral: {this.state.neutral}</span>
+          <span>Bad: {this.state.bad}</span>
+          <span>Total: {this.state.total}</span>
+          <span>Positive feedback:{this.state.PositiveFedback}</span>
+        </div>
+      </>
+    );
+  }
 }
 
-// {/* <div className="FriendList">
-//   <ul className="friend-list">
-//     {friends.map(el => (
-//       <li className="friend-item" key={el.id}>
-//         {el.isOnline === true ? (
-//           <span className="statusOn">&#x263A;</span>
-//         ) : (
-//           <span className="statusOf">&#x263A;</span>
-//         )}
-
-//         <img className="avatar" src={el.avatar} alt="avatar" width="48" />
-//         <p className="name">{el.name}</p>
-//       </li>
-//     ))}
-//   </ul>
-// </div> */}
-/* {FriendList.title === true ? (
-  <h2 className="title">{FriendList.title}</h2>
-  ) : (
-        ' '
-        )} */
+export default Feedback;
