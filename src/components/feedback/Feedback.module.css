@@ -2,6 +2,7 @@ p {
   font-size: 55px;
 }
 .result {
+  /* display: none; */
   display: flex;
   flex-direction: column;
 }

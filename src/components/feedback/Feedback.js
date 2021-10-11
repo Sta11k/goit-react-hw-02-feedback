@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './Feedback.module.css';
 import { Component } from 'react';
 
@@ -17,14 +18,28 @@ const ButtonNeutral = ({ countNeutral, label }) => (
     {label}
   </button>
 );
+
 class Feedback extends Component {
+  // static defaultProps = {
+  //   total: 0,
+  // };
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    PositiveFedback: 0,
+    totalResult: this.props.total,
+    positiveFedback: 0,
   };
+
+  // static propTypes = {};
+
+  // state = {
+  //   goodValue: this.props.good,
+  //   neutralValue: this.props.neutral,
+  //   badValue: this.props.bad,
+  //   totalValue: this.props.total,
+  //   positiveFedbackValue: this.props.positiveFedback,
+  // };
 
   addGood = e => {
     this.setState(prevState => {
@@ -50,14 +65,16 @@ class Feedback extends Component {
     });
   };
 
-  //    async countPositiveFeedbackPercentage  (){
-  //     let total = await this.setState(prevState => {
+  // resultTotal = () => {
+  //   this.total = this.state.good + this.state.neutral + this.state.bad;
 
-  //     return {
-  //       total: this.state.good + this.bad + this.neutral,
-
-  //     }
-  //   })
+  //   // this.setState(prevState => {
+  //   //   return {
+  //   //     totalResult: prevState(
+  //   //       this.state.good + this.state.neutral + this.state.bad,
+  //   //     ),
+  //   //   };
+  //   // });
   // };
 
   render() {
@@ -68,14 +85,24 @@ class Feedback extends Component {
         <ButtonNeutral label="Neutral" countNeutral={this.addNeutral} />
         <ButtonBad label="Bad" countBad={this.addBad} />
         <h2>Statistics</h2>
-        <div className={styles.result}>
+
+        <section className={styles.result}>
           <span>No feedback given</span>
           <span>Good: {this.state.good}</span>
           <span>Neutral: {this.state.neutral}</span>
           <span>Bad: {this.state.bad}</span>
-          <span>Total: {this.state.total}</span>
-          <span>Positive feedback:{this.state.PositiveFedback}</span>
-        </div>
+          <span>
+            Total: {this.state.good + this.state.neutral + this.state.bad}
+          </span>
+          <span>
+            Positive feedback:
+            {Math.round(
+              (this.state.good * 100) /
+                (this.state.good + this.state.neutral + this.state.bad),
+            )}
+            %
+          </span>
+        </section>
       </>
     );
   }
