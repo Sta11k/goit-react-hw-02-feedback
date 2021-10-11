@@ -89,9 +89,10 @@ class Feedback extends Component {
         <ButtonNeutral label="Neutral" countNeutral={this.addNeutral} />
         <ButtonBad label="Bad" countBad={this.addBad} />
         <h2>Statistics</h2>
+        {this.state.visible === false ? <span>No feedback given</span> : ''}
+
         {this.state.visible && (
           <section className={styles.result}>
-            <span>No feedback given</span>
             <span>Good: {this.state.good}</span>
             <span>Neutral: {this.state.neutral}</span>
             <span>Bad: {this.state.bad}</span>
