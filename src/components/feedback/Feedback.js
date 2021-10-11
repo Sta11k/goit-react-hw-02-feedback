@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Feedback.module.css';
 import { Component } from 'react';
 
-const ButtonGood = ({ countGood, label }) => (
+const ButtonGood = ({ countGood, label, show }) => (
   <button type="button" onClick={countGood}>
     {label}
   </button>
@@ -20,17 +20,23 @@ const ButtonNeutral = ({ countNeutral, label }) => (
 );
 
 class Feedback extends Component {
-  // static defaultProps = {
-  //   total: 0,
-  // };
+  static defaultProps = {
+    totalRes: 0,
+  };
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    totalResult: this.props.total,
+    total: 0,
     positiveFedback: 0,
+    visible: false,
   };
 
+  show = () => {
+    this.setState({
+      visible: true,
+    });
+  };
   // static propTypes = {};
 
   // state = {
@@ -42,6 +48,7 @@ class Feedback extends Component {
   // };
 
   addGood = e => {
+    this.show();
     this.setState(prevState => {
       return {
         good: prevState.good + 1,
@@ -50,6 +57,7 @@ class Feedback extends Component {
   };
 
   addNeutral = e => {
+    this.show();
     this.setState(prevState => {
       return {
         neutral: prevState.neutral + 1,
@@ -58,6 +66,7 @@ class Feedback extends Component {
   };
 
   addBad = e => {
+    this.show();
     this.setState(prevState => {
       return {
         bad: prevState.bad + 1,
@@ -65,17 +74,12 @@ class Feedback extends Component {
     });
   };
 
-  // resultTotal = () => {
-  //   this.total = this.state.good + this.state.neutral + this.state.bad;
-
-  //   // this.setState(prevState => {
-  //   //   return {
-  //   //     totalResult: prevState(
-  //   //       this.state.good + this.state.neutral + this.state.bad,
-  //   //     ),
-  //   //   };
-  //   // });
-  // };
+  countTotalFeedback() {
+    // return (this.total = this.state.good + this.state.neutral + this.state.bad);
+    this.setState(prevState => ({
+      total: (prevState.total = this.state.good),
+    }));
+  }
 
   render() {
     return (
@@ -85,24 +89,25 @@ class Feedback extends Component {
         <ButtonNeutral label="Neutral" countNeutral={this.addNeutral} />
         <ButtonBad label="Bad" countBad={this.addBad} />
         <h2>Statistics</h2>
-
-        <section className={styles.result}>
-          <span>No feedback given</span>
-          <span>Good: {this.state.good}</span>
-          <span>Neutral: {this.state.neutral}</span>
-          <span>Bad: {this.state.bad}</span>
-          <span>
-            Total: {this.state.good + this.state.neutral + this.state.bad}
-          </span>
-          <span>
-            Positive feedback:
-            {Math.round(
-              (this.state.good * 100) /
-                (this.state.good + this.state.neutral + this.state.bad),
-            )}
-            %
-          </span>
-        </section>
+        {this.state.visible && (
+          <section className={styles.result}>
+            <span>No feedback given</span>
+            <span>Good: {this.state.good}</span>
+            <span>Neutral: {this.state.neutral}</span>
+            <span>Bad: {this.state.bad}</span>
+            <span>
+              Total: {this.state.good + this.state.neutral + this.state.bad}
+            </span>
+            <span>
+              Positive feedback:
+              {Math.floor(
+                (this.state.good * 100) /
+                  (this.state.good + this.state.neutral + this.state.bad),
+              )}
+              %
+            </span>
+          </section>
+        )}
       </>
     );
   }
